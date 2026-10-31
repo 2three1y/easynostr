@@ -27,7 +27,7 @@ Live: https://2three1y.github.io/easynostr/
 
 Plain HTML, CSS and JavaScript modules. No build step, no frameworks, no CDNs, no trackers, no server of its own. The Nostr protocol code (NIP-01 events and relay connections, NIP-19 bech32 codes) is hand-written in `js/nostr.js`. Signatures use the vendored [noble-secp256k1](https://github.com/paulmillr/noble-secp256k1). See [CREDITS.md](CREDITS.md).
 
-Default relays: relay.damus.io, nos.lol, relay.primal.net, relay.nostr.band. Change them in Settings.
+Default relays: relay.damus.io, nos.lol, relay.primal.net, relay.snort.social. Change them in Settings.
 
 To run it locally, serve the folder with any static server (for example `python3 -m http.server`) and open it. It needs a secure context (https or localhost) for the browser's crypto.
 
