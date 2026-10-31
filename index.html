@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-US" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>easynostr</title>
+  <meta name="description" content="easynostr is a simple, screen reader friendly Nostr web client. Every note is a heading, every button says what it does.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#7c3aed">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="easynostr: Nostr, made easy and accessible">
+  <meta property="og:description" content="A simple, screen reader friendly Nostr web client. Every note is a heading, every button says what it does.">
+  <meta property="og:url" content="https://2three1y.github.io/easynostr/">
+  <meta property="og:image" content="https://2three1y.github.io/easynostr/og.jpg">
+  <meta property="og:image:alt" content="easynostr logo, a purple speech bubble, with the words Nostr made easy and accessible.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // apply saved theme and size before first paint, so the page never flashes
+    try { var s = JSON.parse(localStorage.getItem('easynostr.settings') || '{}');
+      document.documentElement.dataset.theme = s.theme || 'auto';
+      document.documentElement.dataset.size = s.textSize || 'normal'; } catch (e) {}
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="bar">
+      <a class="brand" href="#/"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M6 5h20a4 4 0 0 1 4 4v11a4 4 0 0 1-4 4H14l-7 5v-5H6a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4z"/><path class="logo-n" d="M11 19v-7.5l10 7.5v-7.5" /></svg><span>easynostr</span></a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li data-needs-signin hidden><a href="#/home" data-home="home">Home</a></li>
+          <li><a id="nav-global" href="#/global" data-home="global">Global</a></li>
+          <li data-needs-signin hidden><a href="#/notifications">Notifications</a></li>
+          <li data-needs-signer hidden><a id="nav-compose" href="#/compose">New note</a></li>
+          <li data-needs-signin hidden><a id="nav-profile" href="#/login">Profile</a></li>
+          <li><a href="#/settings">Settings</a></li>
+          <li><a id="nav-account" href="#/login">Sign in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <h1>easynostr</h1>
+    <noscript><p>easynostr needs JavaScript to talk to Nostr relays. Please turn it on.</p></noscript>
+  </main>
+  <footer class="site-footer">
+    <p><a href="#/help">Help and shortcuts</a> · <a href="https://github.com/2three1y/easynostr">Source code</a> · MIT license</p>
+    <p>Co-written with Tab</p>
+  </footer>
+  <div id="status" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
