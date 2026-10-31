@@ -398,9 +398,9 @@ async function viewGlobal() {
   makeFeed(tok, (until) => [{ kinds: [1, 6], limit: PAGE * 2, ...(until ? { until } : {}) }],
     { filter: (e) => (e.kind === 6 || (e.content || '').trim().length > 0) && !isReply(e) && !looksSpammy(e),
       keep: (() => { const per = new Map(); return (e) => {
-        // only people with a profile, and at most 2 per author per page, so one bot can't fill the feed
+        // only people with a profile (reposters too), at most 2 per author per page, so one bot can't fill the feed
         const pk = target(e).pubkey; const n = (per.get(pk) || 0) + 1; per.set(pk, n);
-        return profiles.has(pk) && n <= 2;
+        return profiles.has(pk) && n <= 2 && (e.kind !== 6 || profiles.has(e.pubkey));
       }; })() });
 }
 
