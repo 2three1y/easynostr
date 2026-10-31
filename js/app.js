@@ -238,7 +238,7 @@ function openReply(t, btn) {
   const name = displayName(t.pubkey);
   const close = () => { form.remove(); btn.focus(); };
   const form = composeForm({
-    label: `Reply to ${name}`, button: 'Send reply', autofocus: true, onCancel: close,
+    label: `Reply to ${name}`, button: 'Send reply', onCancel: close,
     onSend: async (text) => {
       const root = rootOf(t) || t.id;
       const tags = root === t.id ? [['e', t.id, '', 'root']] : [['e', root, '', 'root'], ['e', t.id, '', 'reply']];
@@ -254,6 +254,7 @@ function openReply(t, btn) {
     },
   });
   art.append(form);
+  form.querySelector('textarea').focus();
 }
 
 async function doLike(t, btn) {
@@ -396,7 +397,11 @@ async function viewGlobal() {
   main.append(feedTools(() => route(true)));
   makeFeed(tok, (until) => [{ kinds: [1, 6], limit: PAGE * 2, ...(until ? { until } : {}) }],
     { filter: (e) => (e.kind === 6 || (e.content || '').trim().length > 0) && !isReply(e) && !looksSpammy(e),
-      keep: (e) => profiles.has(target(e).pubkey) });
+      keep: (() => { const per = new Map(); return (e) => {
+        // only people with a profile, and at most 2 per author per page, so one bot can't fill the feed
+        const pk = target(e).pubkey; const n = (per.get(pk) || 0) + 1; per.set(pk, n);
+        return profiles.has(pk) && n <= 2;
+      }; })() });
 }
 
 async function viewHome() {
@@ -613,7 +618,7 @@ function viewLogin() {
 
   const nameId = 'new-name';
   const gen = h('section.card', { 'aria-labelledby': 'gen-h' }, h('h2', { id: 'gen-h' }, 'Make a new account'),
-    h('p', {}, 'This makes a brand new key in your browser. Nothing is sent until you post.'),
+    h('p', {}, 'This makes a brand new key in your browser. If you pick a name, it is shared on Nostr as your profile.'),
     h('form', { onsubmit: async (e) => {
       e.preventDefault();
       const name = e.target.querySelector('input').value.trim();
