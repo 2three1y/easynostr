@@ -190,7 +190,7 @@ function actionsFor(t, name) {
 
 // ---------- composing ----------
 function composeForm({ label, button, onSend, autofocus = false, id = 'c' + (++uid), onCancel }) {
-  const ta = h('textarea', { id: id + '-t', rows: '4', 'aria-describedby': id + '-n' });
+  const ta = h('textarea', { id: id + '-t', rows: '4' });
   const counter = h('p.counter', { id: id + '-n' }, '0 characters');
   let timer, lastSaid = -1;
   ta.addEventListener('input', () => {
@@ -489,7 +489,7 @@ async function viewProfile(param) {
     handleOf(pk) ? h('p.handle', {}, handleOf(pk)) : null,
     h('p.stats', {}, `Follows ${plural(theirs.follows.size, 'person', 'people')}`))));
   if (p.about) { const { body } = formatContent({ content: String(p.about).slice(0, 1200), tags: [] }); card.append(body); }
-  if (typeof p.website === 'string' && /^https?:\/\//.test(p.website)) card.append(h('p', {}, 'Website: ', h('a.ext', { href: p.website, target: '_blank', rel: 'noopener noreferrer nofollow' }, p.website.replace(/^https?:\/\//, ''), h('span.sr-only', {}, ' (opens in a new tab)'))));
+  if (typeof p.website === 'string' && /^https?:\/\//.test(p.website)) card.append(h('p', {}, 'Website: ', h('a.ext', { href: p.website, target: '_blank', rel: 'noopener noreferrer nofollow' }, p.website.replace(/^https?:\/\//, ''))));
   const row = h('div.btns');
   if (canSign() && pk !== me()) {
     const fb = h('button.btn', { type: 'button', onclick: () => toggleFollow(pk, fb) }, 'Follow');
@@ -659,7 +659,7 @@ function viewSettings() {
     }));
   const check = (key, label, hint) => {
     const id = 'set-' + key;
-    return h('div.choice', {}, h('input', { type: 'checkbox', id, checked: !!settings[key], 'aria-describedby': hint ? id + '-hint' : null,
+    return h('div.choice', {}, h('input', { type: 'checkbox', id, checked: !!settings[key],
       onchange: (e) => { settings[key] = e.target.checked; saveSettings(); applySettings(); announce(`${label} ${e.target.checked ? 'on' : 'off'}. Saved.`); } }),
     h('label', { for: id }, label), hint ? h('p.hint', { id: id + '-hint' }, hint) : null);
   };

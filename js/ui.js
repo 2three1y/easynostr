@@ -198,9 +198,9 @@ function tokenNodes(tok, alts, media) {
     return [h('a.ext', { href: tok, target: '_blank', rel: 'noopener noreferrer nofollow' }, alt ? `image: ${alt}` : 'image, no description')];
   }
   if (VID_RE.test(tok)) {
-    return [h('a.ext', { href: tok, target: '_blank', rel: 'noopener noreferrer nofollow' }, 'video: ' + linkLabel(tok), h('span.sr-only', {}, ' (opens in a new tab)'))];
+    return [h('a.ext', { href: tok, target: '_blank', rel: 'noopener noreferrer nofollow' }, 'video: ' + linkLabel(tok))];
   }
-  return [h('a.ext', { href: tok, target: '_blank', rel: 'noopener noreferrer nofollow', title: tok }, linkLabel(tok), h('span.sr-only', {}, ' (opens in a new tab)'))];
+  return [h('a.ext', { href: tok, target: '_blank', rel: 'noopener noreferrer nofollow', title: tok }, linkLabel(tok))];
 }
 
 export function excerpt(event, n = 90) {
